@@ -33,17 +33,17 @@ class purchase_order(osv.osv):
         for po in self.browse(cr, uid, ids, context=context):
             pick_ids += [picking.id for picking in po.picking_ids]
 
-				#aviimo
+		#aviimo
         for purchase in self.browse('purchase.order', uid, ids, context=context):
             prod_id = purchase.product_id
 
-						product = search('product', uid, args[('id','=',prod_id), offset=0, limit=None, order=None, context=None, count=False)
-						
-						barcode = '000'
-						for product in self.browse('product', uid, prod, context=context):
+			product = search('product', uid, args[('id','=',prod_id), offset=0, limit=None, order=None, context=None, count=False)
+			
+			barcode = '000'
+			for product in self.browse('product', uid, prod, context=context):
             	barcode += product.default_code
 
-						write('product', uid, ids, { 'ean13' : 'confirmed' })
+			write('product', uid, ids, { 'ean13' : 'confirmed' })
 
         #override the context to get rid of the default filtering on picking type
         action['context'] = {}
